@@ -13,6 +13,7 @@ lazy val root = (project in file("."))
       "Spray Repository" at "http://repo.spray.io",
       "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
     ),
+    fork in run := true,
     libraryDependencies ++= Seq(
       "io.spray" %% "spray-can" % sprayVersion,
       "io.spray" %% "spray-json" % sprayVersion,
