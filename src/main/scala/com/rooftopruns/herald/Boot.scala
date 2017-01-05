@@ -5,6 +5,9 @@ import com.rooftopruns.herald.user.Models.{CreateUser, User}
 import com.rooftopruns.herald.user.UserRepository
 import spray.routing.SimpleRoutingApp
 import spray.httpx.SprayJsonSupport._
+import scala.concurrent.Await
+import scala.concurrent.duration._
+import spray.json.DefaultJsonProtocol._
 
 object Boot extends App with SimpleRoutingApp {
   implicit val system = ActorSystem("my-system")
@@ -15,7 +18,9 @@ object Boot extends App with SimpleRoutingApp {
     path("users") {
       get {
         complete {
-          <h1>Say hello to spray</h1>
+          val rows = Await.result( UserRepository.getall(), 1 second)
+          val users = rows.map(row => User(row.id, row.username, row.password, row.email))
+          users
         }
       } ~
       post {

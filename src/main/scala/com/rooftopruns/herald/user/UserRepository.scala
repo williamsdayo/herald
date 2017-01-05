@@ -18,7 +18,7 @@ object UserRepository {
     *The info below tells the database to give all the users information
     * db.run basically means database run
     */
-  def getall() = {
+  def getall(): Future[Seq[UsersRow]] = {
     db.run(
       Users.result
     )
