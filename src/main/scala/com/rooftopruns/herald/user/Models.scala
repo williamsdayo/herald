@@ -11,5 +11,10 @@ object Models extends DefaultJsonProtocol {
   object User{
     implicit val format = jsonFormat4(User.apply)
   }
+
+  case class CreateUser(username: String, password: String, email: String)
+  object CreateUser{
+    implicit val format = jsonFormat3(CreateUser.apply)
+  }
 }
 
