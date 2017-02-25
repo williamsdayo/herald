@@ -32,4 +32,13 @@ object UserRepository {
       Users += UsersRow(0, cmd.username, cmd.password, cmd.email)
     )
   }
+
+  /**
+    * The code below is used to change a user's token in the database
+    */
+  def setToken(userId: Int, token: String) = {
+    db.run(
+      Users.filter(_.id === userId).map(_.token).update(Some(token))
+    )
+  }
 }
