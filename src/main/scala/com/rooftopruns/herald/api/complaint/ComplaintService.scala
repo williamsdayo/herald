@@ -1,17 +1,20 @@
 package com.rooftopruns.herald.api.complaint
 
-import com.rooftopruns.herald.api.complaint.Models.Complaint
+import com.rooftopruns.herald.api.complaint.Models.CreateComplaint
+import com.rooftopruns.herald.api.message.MessageService
+import com.rooftopruns.herald.api.message.Models.CreateMessage
 import com.rooftopruns.herald.api.user.UserService
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 object ComplaintService {
 
-  def proclaim(complaint: Complaint, token: String): Future[String] = {
+  def proclaim(cmd: CreateComplaint, token: String): Future[String] = {
     for {
       user <- UserService.findByToken(token)
-      _ <- ComplaintRepository.create(complaint, user.id)
+      complaint <- ComplaintRepository.create(cmd, user.id)
+      _ <- MessageService.create(CreateMessage(cmd.content, user.id, complaint.id))
     } yield "OK"
   }
 }

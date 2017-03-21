@@ -12,12 +12,12 @@ object UserService {
   def findByToken(token: String): Future[UsersRow] = UserRepository.findByToken(token).map(_.get)
 
   def fetchAll(): Future[Seq[User]] = for {
-    userRows <- UserRepository.getall()
+    userRows <- UserRepository.fecthAll()
     users = userRows.map(row => User(row.id, row.username, row.password, row.email))
   } yield users
 
   def authenticate(creds: Credentials): Future[Option[String]] = for {
-    userRows <- UserRepository.getall()
+    userRows <- UserRepository.fecthAll()
     matchingUser = userRows.find(user => user.username == creds.username && user.password == creds.password)
     possibleToken = {
       val token = java.util.UUID.randomUUID().toString

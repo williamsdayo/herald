@@ -1,6 +1,6 @@
 package com.rooftopruns.herald.api.complaint
 
-import com.rooftopruns.herald.api.complaint.Models.Complaint
+import com.rooftopruns.herald.api.complaint.Models.CreateComplaint
 import slick.Tables._
 import slick.jdbc.JdbcBackend
 
@@ -18,7 +18,7 @@ object ComplaintRepository {
     *The info below tells the database to give all the users information
     * db.run basically means database run
     */
-  def getall(): Future[Seq[ComplaintsRow]] = {
+  def fetchAll(): Future[Seq[ComplaintsRow]] = {
     db.run(
       Complaints.result
     )
@@ -27,9 +27,10 @@ object ComplaintRepository {
   /**
     * The code below is to create the create the users information in the database
     */
-  def create(complaint: Complaint, userId: Int): Future[Int] = {
+  def create(cmd: CreateComplaint, userId: Int): Future[_root_.slick.Tables.ComplaintsRow] = {
     db.run(
-      Complaints += ComplaintsRow(0, complaint.title, complaint.tag, userId)
+      Complaints returning (Complaints map (_.id)) into ((c, id) => c copy (id = id)) +=
+        ComplaintsRow(0, cmd.title, cmd.tag, userId)
     )
   }
 }

@@ -11,5 +11,10 @@ object Models extends DefaultJsonProtocol {
   object Complaint{
     implicit val format = jsonFormat4(Complaint.apply)
   }
+
+  case class CreateComplaint(title: String, content: String, tag: String)
+  object CreateComplaint{
+    implicit val format = jsonFormat3(CreateComplaint.apply)
+  }
 }
 

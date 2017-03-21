@@ -19,14 +19,14 @@ object UserRepository {
     *The info below tells the database to give all the users information
     * db.run basically means database run
     */
-  def getall(): Future[Seq[UsersRow]] = {
+  def fecthAll(): Future[Seq[UsersRow]] = {
     db.run(
       Users.result
     )
   }
 
   def findByToken(token: String): Future[Option[UsersRow]] = {
-    getall()
+    fecthAll()
       .map { rows =>
         rows.find(_.token.exists(_ == token))
       }
