@@ -1,4 +1,4 @@
-package com.rooftopruns.herald.user
+package com.rooftopruns.herald.api.user
 
 import spray.json.DefaultJsonProtocol
 

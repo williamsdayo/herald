@@ -12,7 +12,7 @@
 
             $.ajax({
                    type: 'POST',
-                   url: 'authenticate',
+                   url: 'users/authenticate',
                    data: credentials,
                    contentType: 'application/json'
                }).done((token) => { alert("Token: " + token) })
