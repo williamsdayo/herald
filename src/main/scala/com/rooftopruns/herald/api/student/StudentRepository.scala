@@ -1,16 +1,16 @@
-package com.rooftopruns.herald.api.user
+package com.rooftopruns.herald.api.student
 
-import com.rooftopruns.herald.api.user.Models.CreateUser
+import com.rooftopruns.herald.api.student.Models.CreateStudent
 import slick.Tables._
 import slick.jdbc.JdbcBackend
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
   * Created by Dayo on 20/12/2016.
   */
-object UserRepository {
+object StudentRepository {
   import slick.driver.MySQLDriver.api._
 
   val db = JdbcBackend.Database.forConfig("herald")
@@ -35,7 +35,7 @@ object UserRepository {
   /**
     * The code below is to create the create the users information in the database
     */
-  def create(cmd: CreateUser): Future[Int] = {
+  def create(cmd: CreateStudent): Future[Int] = {
     db.run(
       Users += UsersRow(0, cmd.username, cmd.password, cmd.email)
     )

@@ -12,9 +12,9 @@ object Models extends DefaultJsonProtocol {
     implicit val format = jsonFormat2(Message.apply)
   }
 
-  case class CreateMessage(content: String, userId: Int, complaintId: Int)
+  case class CreateMessage(content: String, complaintId: Int)
   object CreateMessage{
-    implicit val format = jsonFormat3(CreateMessage.apply)
+    implicit val format = jsonFormat2(CreateMessage.apply)
   }
 }
 

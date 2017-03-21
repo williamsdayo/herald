@@ -10,7 +10,7 @@ trait ComplaintRoutes { self: HttpService =>
 
   val complaints = {
     cookie("token") { tokenCookie =>
-      path("proclaim"){
+      path("complaints"){
         post {
           entity(as[CreateComplaint]) { complaint =>
             onComplete(ComplaintService.proclaim(complaint, tokenCookie.content)) {

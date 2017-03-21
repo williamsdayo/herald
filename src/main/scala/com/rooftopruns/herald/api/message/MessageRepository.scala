@@ -13,9 +13,10 @@ object MessageRepository {
 
   val db = JdbcBackend.Database.forConfig("herald")
 
-  def create(cmd: CreateMessage) = {
+  def create(cmd: CreateMessage, userId: Int) = {
     db.run(
-      Messages += MessagesRow(0, cmd.content, cmd.userId, cmd.complaintId)
+      Messages returning (Messages map (_.id)) into ((m, id) => m copy (id = id)) +=
+        MessagesRow(0, cmd.content, userId, cmd.complaintId)
     )
   }
 

@@ -1,6 +1,6 @@
-package com.rooftopruns.herald.api.user
+package com.rooftopruns.herald.api.student
 
-import com.rooftopruns.herald.api.user.Models.{CreateUser, Credentials}
+import com.rooftopruns.herald.api.student.Models.{CreateStudent, Credentials}
 import spray.http.HttpCookie
 import spray.httpx.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
@@ -9,14 +9,14 @@ import spray.routing.HttpService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
 
-trait UserRoutes { self: HttpService =>
+trait StudentRoutes { self: HttpService =>
 
   val users = {
     pathPrefix("users") {
       path("authenticate"){
         post {
           entity(as[Credentials]){ creds =>
-            onComplete(UserService.authenticate(creds)) {
+            onComplete(StudentService.authenticate(creds)) {
               case Success(possibleToken) =>
                 possibleToken match {
                   case Some(token) =>
@@ -31,17 +31,19 @@ trait UserRoutes { self: HttpService =>
           }
         }
       } ~
-      post {
-        entity(as[CreateUser]){ newUser =>
-          onComplete(UserService.create(newUser)) {
-            _ => complete("OK")
+      path("students") {
+        post {
+          entity(as[CreateStudent]){ newUser =>
+            onComplete(StudentService.create(newUser)) {
+              _ => complete("OK")
+            }
           }
-        }
-      } ~
-      get {
-        onComplete(UserService.fetchAll()) {
-          case Success(allUsers) => complete(allUsers)
-          case _ => complete("KO")
+        } ~
+        get {
+          onComplete(StudentService.fetchAll()) {
+            case Success(allUsers) => complete(allUsers)
+            case _ => complete("KO")
+          }
         }
       }
     }
