@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/complaint.css">
 
     <script src="/js/libs/jquery-2.2.4.js"></script>
+    <script src="/js/libs/axios-0.15.3.min.js"></script>
     <script src="/js/libs/bootstrap.js"></script>
     <script src="/js/complaint.js"></script>
 
@@ -18,9 +19,17 @@
             <span>Submit your Complaint</span>
         </div>
         <div class="panel-body">
-            <input id="title" class="form-control" type="text" placeholder="TItle"/>
+            <input id="title" class="form-control" type="text" placeholder="Title"/>
+            <br/>
             <textarea id="content" class="form-control" rows="5" placeholder="Content"></textarea>
-            <input type="button" class="form-control" value="Submit" onclick="complain()"/>
+            <br/>
+            <select id="tag" class="form-control">
+                <option>Health</option>
+                <option>Relationship</option>
+                <option>Career</option>
+            </select>
+            <br/>
+            <input type="button" class="form-control btn-success" value="Submit" onclick="complain()"/>
         </div>
     </div>
 </body>

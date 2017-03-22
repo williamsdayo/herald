@@ -1,19 +1,20 @@
- function login(){
+function complain() {
 
-       const title = $("#title").val();
-       const content = $("#content").val();
+    const title = $("#title").val();
+    const content = $("#content").val();
+    const tag = $("#tag").val();
 
-       const complaint = JSON.stringify({
-              title: title,
-              content: content
-          });
+    const complaint = JSON.stringify({
+        title: title,
+        content: content,
+        tag: tag
+    });
 
+    const client = axios.create({
+        baseURL: 'http://localhost:8080/',
+        headers: { 'Content-Type': 'application/json' }
+    });
 
-
-            $.ajax({
-                   type: 'POST',
-                   url: 'proclaim',
-                   data: complaint,
-                   contentType: 'application/json'
-               })
- }
+    client.post('complaints', complaint)
+        .then((response) => alert(response.data));
+}
