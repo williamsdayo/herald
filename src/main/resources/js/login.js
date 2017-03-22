@@ -14,5 +14,6 @@ function login() {
     });
 
     client.post('users/authenticate', credentials)
-        .then((response) => Cookies.set('token', response.data));
+        .then((response) => Cookies.set('token', response.data))
+        .then((_) => window.location.href = "dashboard.html");
 }

@@ -5,6 +5,7 @@ import slick.Tables._
 import slick.jdbc.JdbcBackend
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by Dayo on 20/12/2016.
@@ -22,6 +23,13 @@ object ComplaintRepository {
     db.run(
       Complaints.result
     )
+  }
+
+  def findByUserId(userId: Int): Future[Seq[ComplaintsRow]] = {
+    fetchAll()
+      .map { rows =>
+        rows.filter(_.userId == userId)
+      }
   }
 
   /**
