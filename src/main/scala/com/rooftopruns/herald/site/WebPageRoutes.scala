@@ -11,6 +11,11 @@ trait WebPageRoutes { self: HttpService =>
         getFromResource("html/login.html")
       }
     } ~
+    path("register.html") {
+      get {
+        getFromResource("html/register.html")
+      }
+    } ~
     path("complaint.html") {
       get {
         getFromResource("html/complaint.html")

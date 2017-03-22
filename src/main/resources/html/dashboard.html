@@ -25,6 +25,11 @@
         </div>
         <div id="content" class="panel panel-default">
             <div class="panel-body">
+                <div class="panel panel-default" ng-hide="complaints.length">
+                    <div class="panel-body">
+                        <span>You have not raised any complaints yet</span>
+                    </div>
+                </div>
                 <div class="panel panel-default" ng-repeat="complaint in complaints">
                     <div class="panel-body">
                         <a href="complaint/{{ complaint.id }}.html">{{ complaint.title }}</a>

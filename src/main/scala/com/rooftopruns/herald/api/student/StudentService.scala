@@ -8,7 +8,10 @@ import scala.concurrent.Future
 
 object StudentService {
 
-  def create(newUser: CreateStudent) = StudentRepository.create(newUser)
+  def create(newUser: CreateStudent) = for {
+    _ <- StudentRepository.create(newUser)
+    token <- authenticate(Credentials(newUser.username, newUser.password))
+  } yield token
 
   def findByToken(token: String): Future[StudentsRow] = StudentRepository.findByToken(token).map(_.get)
 

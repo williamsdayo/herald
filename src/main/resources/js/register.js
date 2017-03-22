@@ -1,11 +1,13 @@
-function login() {
+function register() {
 
     const username = $("#username").val();
     const password = $("#password").val();
+    const email = $("#email").val();
 
     const credentials = JSON.stringify({
         username: username,
-        password: password
+        password: password,
+        email: email
     });
 
     const client = axios.create({
@@ -13,7 +15,7 @@ function login() {
         headers: { 'Content-Type': 'application/json' }
     });
 
-    client.post('students/authenticate', credentials)
+    client.post('students/register', credentials)
         .then((response) => Cookies.set('token', response.data))
         .then((_) => window.location.href = "dashboard.html");
 }

@@ -11,7 +11,7 @@ import scala.util.Success
 trait StudentRoutes { self: HttpService =>
 
   val users = {
-    pathPrefix("users") {
+    pathPrefix("students") {
       path("authenticate"){
         post {
           entity(as[Credentials]){ creds =>
@@ -26,19 +26,24 @@ trait StudentRoutes { self: HttpService =>
           }
         }
       } ~
-      path("students") {
+      path("register"){
         post {
-          entity(as[CreateStudent]){ newUser =>
-            onComplete(StudentService.create(newUser)) {
-              _ => complete("OK")
+          entity(as[CreateStudent]){ student =>
+            onComplete(StudentService.create(student)) {
+              case Success(possibleToken) =>
+                possibleToken match {
+                  case Some(token) => complete(token)
+                  case None => complete("KO")
+                }
+              case _ => complete("KO")
             }
           }
-        } ~
-        get {
-          onComplete(StudentService.fetchAll()) {
-            case Success(allUsers) => complete(allUsers)
-            case _ => complete("KO")
-          }
+        }
+      } ~
+      get {
+        onComplete(StudentService.fetchAll()) {
+          case Success(allUsers) => complete(allUsers)
+          case _ => complete("KO")
         }
       }
     }
