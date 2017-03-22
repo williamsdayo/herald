@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="/css/libs/bootstrap.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <script src="/js/libs/jquery-2.2.4.js"></script>
+    <script src="/js/libs/axios-0.15.3.min.js"></script>
+    <script src="/js/libs/angular.min.js"></script>
+    <script src="/js/libs/bootstrap.js"></script>
+    <script src="/js/messages.js"></script>
+
+    <title>View Complaints</title>
+</head>
+<body>
+    <div ng-app="herald" ng-controller="messagesController">
+        <div id="main">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="complaint.html">Submit a complaint</a>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel panel-default" ng-hide="complaints.length">
+                    <div class="panel-body">
+                        <span>You have not raised any complaints yet</span>
+                    </div>
+                </div>
+                <div class="panel panel-default" ng-repeat="complaint in complaints">
+                    <div class="panel-body">
+                        <a href="complaint/{{ complaint.id }}.html">{{ complaint.title }}</a>
+                        <br>
+                        <span>Tag: {{ complaint.tag }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

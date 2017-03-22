@@ -11,14 +11,14 @@ import scala.concurrent.Future
 object ComplaintService {
 
   def findByUser(token: String): Future[Seq[Complaint]] = for {
-    user <- StudentService.findByToken(token)
-    complaintRows <- ComplaintRepository.findByUserId(user.id)
+    student <- StudentService.findByToken(token)
+    complaintRows <- ComplaintRepository.findByUserId(student.id)
     complaints = complaintRows.map(row => Complaint(row.id, row.title, row.tag))
   } yield complaints
 
   def proclaim(cmd: CreateComplaint, token: String): Future[String] = for {
-    user <- StudentService.findByToken(token)
-    complaint <- ComplaintRepository.create(cmd, user.id)
-    _ <- MessageService.reply(CreateMessage(cmd.content, complaint.id), token)
+    student <- StudentService.findByToken(token)
+    complaint <- ComplaintRepository.create(cmd, student.id)
+    _ <- MessageService.reply(CreateMessage(cmd.content, complaint.id, "Question"), token)
   } yield "OK"
 }

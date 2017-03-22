@@ -1,6 +1,7 @@
 package com.rooftopruns.herald.api.student
 
-import com.rooftopruns.herald.api.student.Models.{CreateStudent, Credentials, Student}
+import com.rooftopruns.herald.api.student.Models.{CreateStudent, Student}
+import com.rooftopruns.herald.api.user.Models.Credentials
 import slick.Tables.StudentsRow
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -21,12 +22,12 @@ object StudentService {
   } yield users
 
   def authenticate(creds: Credentials): Future[Option[String]] = for {
-    userRows <- StudentRepository.fetchAll()
-    matchingUser = userRows.find(user => user.username == creds.username && user.password == creds.password)
+    studentRows <- StudentRepository.fetchAll()
+    matchingUser = studentRows.find(student => student.username == creds.username && student.password == creds.password)
     possibleToken = {
       val token = java.util.UUID.randomUUID().toString
       matchingUser
-        .map { user => StudentRepository.setToken(user.id, token) }
+        .map { student => StudentRepository.setToken(student.id, token) }
         .map { _ => token }
     }
   } yield possibleToken

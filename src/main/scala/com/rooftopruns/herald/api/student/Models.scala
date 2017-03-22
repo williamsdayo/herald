@@ -1,5 +1,6 @@
 package com.rooftopruns.herald.api.student
 
+import com.rooftopruns.herald.api.user.Models.User
 import spray.json.DefaultJsonProtocol
 
 /**
@@ -7,12 +8,7 @@ import spray.json.DefaultJsonProtocol
   */
 object Models extends DefaultJsonProtocol {
 
-  case class Credentials(username: String, password: String)
-  object Credentials{
-    implicit val format = jsonFormat2(Credentials.apply)
-  }
-
-  case class Student(id: Int, username: String, password: String, email: String)
+  case class Student(id: Int, username: String, password: String, email: String) extends User(id, username, password, email)
   object Student{
     implicit val format = jsonFormat4(Student.apply)
   }

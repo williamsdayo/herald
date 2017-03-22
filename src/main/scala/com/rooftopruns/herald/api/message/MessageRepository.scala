@@ -16,7 +16,7 @@ object MessageRepository {
   def create(cmd: CreateMessage, userId: Int) = {
     db.run(
       Messages returning (Messages map (_.id)) into ((m, id) => m copy (id = id)) +=
-        MessagesRow(0, cmd.content, userId, cmd.complaintId)
+        MessagesRow(0, cmd.content, userId, cmd.complaintId, cmd.kind)
     )
   }
 
