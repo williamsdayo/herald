@@ -19,13 +19,13 @@ object StudentRepository {
     *The info below tells the database to give all the users information
     * db.run basically means database run
     */
-  def fecthAll(): Future[Seq[UsersRow]] = {
+  def fecthAll(): Future[Seq[StudentsRow]] = {
     db.run(
-      Users.result
+      Students.result
     )
   }
 
-  def findByToken(token: String): Future[Option[UsersRow]] = {
+  def findByToken(token: String): Future[Option[StudentsRow]] = {
     fecthAll()
       .map { rows =>
         rows.find(_.token.exists(_ == token))
@@ -37,7 +37,7 @@ object StudentRepository {
     */
   def create(cmd: CreateStudent): Future[Int] = {
     db.run(
-      Users += UsersRow(0, cmd.username, cmd.password, cmd.email)
+      Students += StudentsRow(0, cmd.username, cmd.password, cmd.email)
     )
   }
 
@@ -48,7 +48,7 @@ object StudentRepository {
     */
   def setToken(userId: Int, token: String) = {
     db.run(
-      Users.filter(_.id === userId).map(_.token).update(Some(token))
+      Students.filter(_.id === userId).map(_.token).update(Some(token))
     )
   }
 }
