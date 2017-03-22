@@ -8,12 +8,17 @@ trait WebPageRoutes { self: HttpService =>
   lazy val pages = {
     path("login.html") {
       get {
-        getFromResource("html/index.html")
+        getFromResource("html/login.html")
       }
     } ~
     path("complaint.html") {
       get {
         getFromResource("html/complaint.html")
+      }
+    } ~
+    path("dashboard.html") {
+      get {
+        getFromResource("html/dashboard.html")
       }
     }
   }

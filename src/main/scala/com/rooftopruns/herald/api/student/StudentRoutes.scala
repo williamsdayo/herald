@@ -1,7 +1,6 @@
 package com.rooftopruns.herald.api.student
 
 import com.rooftopruns.herald.api.student.Models.{CreateStudent, Credentials}
-import spray.http.HttpCookie
 import spray.httpx.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
 import spray.routing.HttpService
@@ -19,12 +18,8 @@ trait StudentRoutes { self: HttpService =>
             onComplete(StudentService.authenticate(creds)) {
               case Success(possibleToken) =>
                 possibleToken match {
-                  case Some(token) =>
-                    setCookie(HttpCookie("token", content = token)) {
-                      complete("OK")
-                    }
-                  case None =>
-                    complete("KO")
+                  case Some(token) => complete(token)
+                  case None => complete("KO")
                 }
               case _ => complete("KO")
             }
