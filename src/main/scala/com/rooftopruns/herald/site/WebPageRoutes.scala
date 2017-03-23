@@ -17,23 +17,21 @@ trait WebPageRoutes { self: HttpService =>
         getFromResource("html/register.html")
       }
     } ~
-    pathPrefix("complaints") {
-      path(".html") {
-        get {
-          getFromResource("html/complaints.html")
-        }
-      } ~
-      pathPrefix(IntNumber) { complaintId =>
-        path(".html") {
-          setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
-            getFromResource("html/messages.html")
-          }
-        }
-      }
-    } ~
     path("complain.html") {
       get {
         getFromResource("html/complain.html")
+      }
+    } ~
+    path("complaints.html") {
+      get {
+        getFromResource("html/complaints.html")
+      }
+    } ~
+    path("complaints" / IntNumber ~ ".html") { complaintId =>
+      setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
+        get {
+          getFromResource("html/messages.html")
+        }
       }
     }
   }

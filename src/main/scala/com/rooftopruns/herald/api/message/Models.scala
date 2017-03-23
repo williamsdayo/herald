@@ -55,7 +55,7 @@ object Models extends DefaultJsonProtocol {
   }
 
   case class Reply(content: String, user: Counsellor) extends Message {
-    override val kind = "Question"
+    override val kind = "Reply"
   }
   object Reply{
     implicit val format = jsonFormat2(Reply.apply)

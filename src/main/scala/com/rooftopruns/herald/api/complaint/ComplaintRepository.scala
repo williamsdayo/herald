@@ -25,7 +25,14 @@ object ComplaintRepository {
     )
   }
 
-  def findByUserId(userId: Int): Future[Seq[ComplaintsRow]] = {
+  def find(complaintId: Int): Future[ComplaintsRow] = {
+    fetchAll()
+      .map { rows =>
+        rows.find(_.id == complaintId).get
+      }
+  }
+
+  def findAllForUser(userId: Int): Future[Seq[ComplaintsRow]] = {
     fetchAll()
       .map { rows =>
         rows.filter(_.userId == userId)

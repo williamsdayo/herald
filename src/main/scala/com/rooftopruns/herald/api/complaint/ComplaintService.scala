@@ -10,9 +10,14 @@ import scala.concurrent.Future
 
 object ComplaintService {
 
-  def findByUser(token: String): Future[Seq[Complaint]] = for {
+  def find(complaintId: Int) = for {
+    complaintRow <- ComplaintRepository.find(complaintId)
+    complaint = Complaint(complaintRow.id, complaintRow.title, complaintRow.tag)
+  } yield complaint
+
+  def findAllForUser(token: String): Future[Seq[Complaint]] = for {
     student <- StudentService.findByToken(token)
-    complaintRows <- ComplaintRepository.findByUserId(student.id)
+    complaintRows <- ComplaintRepository.findAllForUser(student.id)
     complaints = complaintRows.map(row => Complaint(row.id, row.title, row.tag))
   } yield complaints
 
