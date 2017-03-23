@@ -1,11 +1,11 @@
 package com.rooftopruns.herald.api.message
 
 import com.rooftopruns.herald.api.message.Models.CreateMessage
-import slick.jdbc.JdbcBackend
 import slick.Tables._
+import slick.jdbc.JdbcBackend
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 object MessageRepository {
 

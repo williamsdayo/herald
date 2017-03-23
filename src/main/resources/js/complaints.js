@@ -1,5 +1,5 @@
 var app = angular.module('herald', []);
-app.controller('dashboardController', function($scope) {
+app.controller('complaintsController', function($scope) {
     $scope.complaints = [];
 
     const client = axios.create({

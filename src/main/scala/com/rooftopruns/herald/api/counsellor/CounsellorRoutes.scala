@@ -7,8 +7,8 @@ import com.rooftopruns.herald.api.user.Models.Credentials
 import spray.httpx.SprayJsonSupport._
 import spray.routing.HttpService
 
-import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.Success
 
 trait CounsellorRoutes { self: HttpService =>
 

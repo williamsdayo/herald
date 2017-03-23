@@ -16,5 +16,5 @@ function complain() {
     });
 
     client.post('complaints', complaint)
-        .then((_) => window.location.href = "dashboard.html");
+        .then((_) => window.location.href = "complaints.html");
 }

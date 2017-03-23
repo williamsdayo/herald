@@ -27,7 +27,7 @@ object MessageService {
   } yield "OK"
 
   def reply(cmd: CreateMessage, token: String) = for {
-    student <- CounsellorService.findByToken(token)
-    _ <- MessageRepository.create(cmd, student.id)
+    counsellor <- CounsellorService.findByToken(token)
+    _ <- MessageRepository.create(cmd, counsellor.id)
   } yield "OK"
 }

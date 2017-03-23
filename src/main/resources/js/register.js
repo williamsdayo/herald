@@ -17,5 +17,5 @@ function register() {
 
     client.post('students/register', credentials)
         .then((response) => Cookies.set('token', response.data))
-        .then((_) => window.location.href = "dashboard.html");
+        .then((_) => window.location.href = "complaints.html");
 }

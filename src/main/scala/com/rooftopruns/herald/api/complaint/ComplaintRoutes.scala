@@ -2,8 +2,6 @@ package com.rooftopruns.herald.api.complaint
 
 import com.rooftopruns.herald.api.complaint.Models.CreateComplaint
 import com.rooftopruns.herald.api.message.MessageService
-import com.rooftopruns.herald.api.message.Models.CreateMessage
-import spray.http.HttpCookie
 import spray.httpx.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
 import spray.routing.HttpService
@@ -31,9 +29,6 @@ trait ComplaintRoutes { self: HttpService =>
                 case _ => complete("KO")
               }
             }
-          } ~
-          setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
-            getFromResource("html/messages.html")
           }
         } ~
         get {

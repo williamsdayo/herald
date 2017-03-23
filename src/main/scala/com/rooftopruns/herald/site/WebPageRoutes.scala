@@ -1,6 +1,7 @@
 package com.rooftopruns.herald.site
 
 import com.rooftopruns.herald.Boot._
+import spray.http.HttpCookie
 import spray.routing.HttpService
 
 trait WebPageRoutes { self: HttpService =>
@@ -16,14 +17,23 @@ trait WebPageRoutes { self: HttpService =>
         getFromResource("html/register.html")
       }
     } ~
-    path("complaint.html") {
-      get {
-        getFromResource("html/complaint.html")
+    pathPrefix("complaints") {
+      path(".html") {
+        get {
+          getFromResource("html/complaints.html")
+        }
+      } ~
+      pathPrefix(IntNumber) { complaintId =>
+        path(".html") {
+          setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
+            getFromResource("html/messages.html")
+          }
+        }
       }
     } ~
-    path("dashboard.html") {
+    path("complain.html") {
       get {
-        getFromResource("html/dashboard.html")
+        getFromResource("html/complain.html")
       }
     }
   }

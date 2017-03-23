@@ -4,8 +4,8 @@ import com.rooftopruns.herald.api.complaint.Models.CreateComplaint
 import slick.Tables._
 import slick.jdbc.JdbcBackend
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
   * Created by Dayo on 20/12/2016.
