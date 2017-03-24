@@ -26,8 +26,9 @@
         </div>
         <div id="content" class="panel panel-default">
             <div class="panel-body">
-                <div class="panel panel-default" ng-repeat="message in messages">
-                    <div class="panel-body" ng-class="{'shift-right': message.kind == 'Reply'}">
+                <div class="panel panel-default message" ng-repeat="message in messages"
+                     ng-class="{'reply': message.kind == 'Reply'}">
+                    <div class="panel-body">
                         <span><i>{{ message.user.username }}</i></span>
                         <span>{{ message.content }}</span>
                     </div>

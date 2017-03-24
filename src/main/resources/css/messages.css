@@ -21,7 +21,23 @@
     margin-right: auto;
 }
 
-#content span {
+#content .message {
+    padding-right: 30px;
+    background-color: rgba(255, 133, 82, 0.49);
+}
+
+#content .message .panel-body {
+    background-color: white;
+}
+
+#content .message.reply {
+    text-align: right;
+    padding-left: 30px;
+    padding-right: 0px;
+    background-color: rgba(41, 115, 115, 0.5);
+}
+
+#content .message span {
     display: block;
 }
 
@@ -35,8 +51,4 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-}
-
-.shift-right {
-    text-align: right;
 }
