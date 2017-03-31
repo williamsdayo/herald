@@ -18,5 +18,17 @@ app.controller('messagesController', function($scope) {
     client.get('complaints/' + complaintId + '/messages')
         .then((response) => response.data)
         .then((messages) => messages.forEach((message) => $scope.messages.push(message)))
-        .then((_) => $scope.$apply())
+        .then((_) => $scope.$apply());
+
+    $scope.sendMessage = () => {
+
+        const message = {
+            content: $scope.content,
+            complaintId: complaintId * 1,
+            kind: "Unknown"
+        };
+
+        client.post('complaints/' + complaintId +  '/messages', message)
+            .then((_) => window.location.reload())
+    }
 });

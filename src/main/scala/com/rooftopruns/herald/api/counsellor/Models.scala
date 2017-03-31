@@ -8,8 +8,7 @@ import spray.json.DefaultJsonProtocol
   */
 object Models extends DefaultJsonProtocol {
 
-  case class Counsellor(id: Int, username: String, password: String, email: String, tags: List[String])
-    extends User(id, username, password, email)
+  case class Counsellor(id: Int, username: String, password: String, email: String, tags: Seq[String]) extends User
   object Counsellor{
     implicit val format = jsonFormat5(Counsellor.apply)
   }

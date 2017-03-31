@@ -4,7 +4,12 @@ import spray.json.DefaultJsonProtocol
 
 object Models extends DefaultJsonProtocol {
 
-  abstract class User(id: Int, username: String, password: String, email: String)
+  trait User {
+    def id: Int
+    def username: String
+    def password: String
+    def email: String
+  }
 
   case class Credentials(username: String, password: String)
   object Credentials{

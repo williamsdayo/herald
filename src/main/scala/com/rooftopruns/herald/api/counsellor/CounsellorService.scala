@@ -13,7 +13,7 @@ object CounsellorService {
 
   def fetchAll(): Future[Seq[Counsellor]] = for {
     counsellorRows <- CounsellorRepository.fetchAll()
-    counsellors = counsellorRows.map(row => Counsellor(row.id, row.username, row.password, row.email, row.expertise.split(",").toList))
+    counsellors = counsellorRows.map(row => Counsellor(row.id, row.username, row.password, row.email, row.expertise.split(",")))
   } yield counsellors
   
   def authenticate(creds: Credentials): Future[Option[String]] = for {
