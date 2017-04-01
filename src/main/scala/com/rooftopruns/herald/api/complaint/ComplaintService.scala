@@ -24,6 +24,6 @@ object ComplaintService {
   def proclaim(cmd: CreateComplaint, token: String): Future[String] = for {
     student <- StudentService.findByToken(token)
     complaint <- ComplaintRepository.create(cmd, student.id)
-    _ <- MessageService.reply(CreateMessage(cmd.content, complaint.id, "Question"), token)
+    _ <- MessageService.save(CreateMessage(cmd.content, complaint.id, "Question"), token)
   } yield "OK"
 }

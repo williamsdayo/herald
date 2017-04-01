@@ -29,17 +29,6 @@ trait StudentRoutes { self: HttpService =>
           }
         }
       } ~
-      cookie("token") { tokenCookie =>
-        path("messages") {
-          post {
-            entity(as[CreateMessage]) { message =>
-              onComplete(MessageService.question(message, tokenCookie.content)) {
-                _ => complete("OK")
-              }
-            }
-          }
-        }
-      } ~
       path("register"){
         post {
           entity(as[CreateStudent]){ student =>

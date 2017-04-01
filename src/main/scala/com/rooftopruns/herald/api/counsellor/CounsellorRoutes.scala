@@ -28,17 +28,6 @@ trait CounsellorRoutes { self: HttpService =>
           }
         }
       } ~
-      cookie("token") { tokenCookie =>
-        path("messages") {
-          post {
-            entity(as[CreateMessage]) { message =>
-              onComplete(MessageService.reply(message, tokenCookie.content)) {
-                _ => complete("OK")
-              }
-            }
-          }
-        }
-      } ~
       get {
         onComplete(CounsellorService.fetchAll()) {
           case Success(allUsers) => complete(allUsers)

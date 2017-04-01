@@ -31,14 +31,4 @@ object MessageService {
     kind = if (students.flatMap(_.token).contains(token)) "Question" else "Reply"
     _ <- MessageRepository.create(cmd.copy(kind = kind), user.get.id)
   } yield "OK"
-
-  def question(cmd: CreateMessage, token: String) = for {
-    student <- StudentService.findByToken(token)
-    _ <- MessageRepository.create(cmd, student.id)
-  } yield "OK"
-
-  def reply(cmd: CreateMessage, token: String) = for {
-    counsellor <- CounsellorService.findByToken(token)
-    _ <- MessageRepository.create(cmd, counsellor.id)
-  } yield "OK"
 }
