@@ -14,7 +14,15 @@ function studentLogin() {
     });
 
     client.post('students/authenticate', credentials)
-        .then((response) => Cookies.set('token', response.data))
+        .then((response) => {
+            if (response.data != "KO") return response.data;
+            else {
+                const err = "Your username or password is incorrect";
+                alert(err);
+                throw err
+            }
+        })
+        .then((token) => Cookies.set('token', token))
         .then((_) => window.location.href = "complaints.html");
 }
 
