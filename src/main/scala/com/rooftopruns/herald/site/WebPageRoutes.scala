@@ -1,12 +1,17 @@
 package com.rooftopruns.herald.site
 
 import com.rooftopruns.herald.Boot._
-import spray.http.HttpCookie
+import spray.http.{HttpCookie, StatusCodes}
 import spray.routing.HttpService
 
 trait WebPageRoutes { self: HttpService =>
 
   lazy val pages = {
+    pathSingleSlash {
+      get {
+        redirect("login.html", StatusCodes.MovedPermanently)
+      }
+    } ~
     path("login.html") {
       get {
         getFromResource("html/login.html")
