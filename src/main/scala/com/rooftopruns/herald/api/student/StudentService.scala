@@ -2,7 +2,6 @@ package com.rooftopruns.herald.api.student
 
 import com.rooftopruns.herald.api.student.Models.{CreateStudent, Student}
 import com.rooftopruns.herald.api.user.Models.Credentials
-import slick.Tables.StudentsRow
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -14,7 +13,10 @@ object StudentService {
     token <- authenticate(Credentials(newUser.username, newUser.password))
   } yield token
 
-  def findByToken(token: String): Future[StudentsRow] = StudentRepository.findByToken(token).map(_.get)
+  def findByToken(token: String): Future[Student] = for {
+    studentRow <- StudentRepository.findByToken(token)
+    student = Student(studentRow.id, studentRow.username, studentRow.password, studentRow.email)
+  } yield student
 
   def fetchAll(): Future[Seq[Student]] = for {
     userRows <- StudentRepository.fetchAll()

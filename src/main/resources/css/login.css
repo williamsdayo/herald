@@ -8,3 +8,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.nav-tabs li {
+    width: 50%;
+}

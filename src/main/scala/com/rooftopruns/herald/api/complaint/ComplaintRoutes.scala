@@ -8,7 +8,7 @@ import spray.json.DefaultJsonProtocol._
 import spray.routing.HttpService
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 trait ComplaintRoutes { self: HttpService =>
 
@@ -20,7 +20,7 @@ trait ComplaintRoutes { self: HttpService =>
             get {
               onComplete(MessageService.findByComplaint(complaintId, tokenCookie.content)) {
                 case Success(complaintMessages) => complete(complaintMessages)
-                case _ => complete("KO")
+                case Failure(ex) => complete(s"KO: ${ex.getMessage}")
               }
             } ~
             post {
@@ -35,7 +35,7 @@ trait ComplaintRoutes { self: HttpService =>
             get {
               onComplete(ComplaintService.find(complaintId)) {
                 case Success(complaint) => complete(complaint)
-                case _ => complete("KO")
+                case Failure(ex) => complete(s"KO: ${ex.getMessage}")
               }
             }
           }
@@ -44,17 +44,26 @@ trait ComplaintRoutes { self: HttpService =>
           post {
             entity(as[CreateComplaint]) { complaint =>
               onComplete(ComplaintService.proclaim(complaint, tokenCookie.content)) {
-                _ => complete("OK")
+                case Success(_) => complete("OK")
+                case Failure(ex) => complete(s"KO: ${ex.getMessage}")
               }
             }
           }
         } ~
         pathEnd {
           get {
-            onComplete(ComplaintService.findAllForUser(tokenCookie.content)) {
+            onComplete(ComplaintService.findAllForStudent(tokenCookie.content)) {
               case Success(userComplaints) => complete(userComplaints)
-              case _ => complete("KO")
+              case Failure(ex) => complete(s"KO: ${ex.getMessage}")
             }
+          }
+        }
+      } ~
+      pathPrefix("issues") {
+        get {
+          onComplete(ComplaintService.findAllForCounsellor(tokenCookie.content)) {
+            case Success(userComplaints) => complete(userComplaints)
+            case Failure(ex) => complete(s"KO: ${ex.getMessage}")
           }
         }
       }

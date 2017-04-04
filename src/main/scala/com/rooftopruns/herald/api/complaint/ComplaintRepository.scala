@@ -32,17 +32,24 @@ object ComplaintRepository {
       }
   }
 
-  def findAllForUser(userId: Int): Future[Seq[ComplaintsRow]] = {
+  def findAllForStudent(userId: Int): Future[Seq[ComplaintsRow]] = {
     fetchAll()
       .map { rows =>
         rows.filter(_.userId == userId)
       }
   }
 
+  def findAllForCounsellor(userId: Int, tags: Seq[String]): Future[Seq[ComplaintsRow]] = {
+    fetchAll()
+      .map { rows =>
+        rows.filter(r => tags.contains(r.tag))
+      }
+  }
+
   /**
     * The code below is to create the create the users information in the database
     */
-  def create(cmd: CreateComplaint, userId: Int): Future[_root_.slick.Tables.ComplaintsRow] = {
+  def create(cmd: CreateComplaint, userId: Int): Future[ComplaintsRow] = {
     db.run(
       Complaints returning (Complaints map (_.id)) into ((c, id) => c copy (id = id)) +=
         ComplaintsRow(0, cmd.title, cmd.tag, userId)

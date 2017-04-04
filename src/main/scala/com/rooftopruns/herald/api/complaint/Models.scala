@@ -7,9 +7,9 @@ import spray.json.DefaultJsonProtocol
   */
 object Models extends DefaultJsonProtocol {
 
-  case class Complaint(id: Int, title: String, tag: String)
+  case class Complaint(id: Int, title: String, tag: String, userId: Int)
   object Complaint{
-    implicit val format = jsonFormat3(Complaint.apply)
+    implicit val format = jsonFormat4(Complaint.apply)
   }
 
   case class CreateComplaint(title: String, content: String, tag: String)

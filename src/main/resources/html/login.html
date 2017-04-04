@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/css/libs/bootstrap.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/login.css">
 
     <script src="/js/libs/jquery-2.2.4.js"></script>
     <script src="/js/libs/axios-0.15.3.min.js"></script>
@@ -17,18 +17,46 @@
 <body>
     <div id="main" class="panel panel-default">
         <div class="panel-heading">
-            <span>Welcome to Herald </span>
+            <span>Welcome to Herald</span>
         </div>
-        <div class="panel-body">
-            <div class="form-group">
-                <input id="username" class="form-control" type="text" placeholder="Username"/>
+
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#studentLogin" role="tab" data-toggle="tab">Student</a></li>
+                <li><a href="#counsellorLogin" role="tab" data-toggle="tab">Counsellor</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="studentLogin">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input id="student_username" class="form-control" type="text" placeholder="Username"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="student_password" class="form-control" type="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="form-control btn-success" value="Submit" onclick="studentLogin()"/>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="counsellorLogin">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input id="counsellor_username" class="form-control" type="text" placeholder="Username"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="counsellor_password" class="form-control" type="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="form-control btn-success" value="Submit" onclick="counsellorLogin()"/>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input id="password" class="form-control" type="password" placeholder="Password"/>
-            </div>
-            <div class="form-group">
-                <input type="button" class="form-control btn-success" value="Submit" onclick="login()"/>
-            </div>
+
         </div>
     </div>
 </body>

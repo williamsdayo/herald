@@ -19,7 +19,8 @@ object Boot extends App
   startServer(interface = "localhost", port = 8080) {
     pages ~
     resources ~
-    users ~
+    students ~
+    counsellors ~
     complaints ~
     quit
   }

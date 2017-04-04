@@ -25,10 +25,10 @@ object StudentRepository {
     )
   }
 
-  def findByToken(token: String): Future[Option[StudentsRow]] = {
+  def findByToken(token: String): Future[StudentsRow] = {
     fetchAll()
       .map { rows =>
-        rows.find(_.token.exists(_ == token))
+        rows.find(_.token.exists(_ == token)).get
       }
   }
 

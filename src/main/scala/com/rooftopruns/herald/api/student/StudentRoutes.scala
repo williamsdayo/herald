@@ -1,7 +1,5 @@
 package com.rooftopruns.herald.api.student
 
-import com.rooftopruns.herald.api.message.MessageService
-import com.rooftopruns.herald.api.message.Models.CreateMessage
 import com.rooftopruns.herald.api.student.Models.CreateStudent
 import com.rooftopruns.herald.api.user.Models.Credentials
 import spray.httpx.SprayJsonSupport._
@@ -9,11 +7,11 @@ import spray.json.DefaultJsonProtocol._
 import spray.routing.HttpService
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 trait StudentRoutes { self: HttpService =>
 
-  val users = {
+  val students = {
     pathPrefix("students") {
       path("authenticate"){
         post {
@@ -24,7 +22,7 @@ trait StudentRoutes { self: HttpService =>
                   case Some(token) => complete(token)
                   case None => complete("KO")
                 }
-              case _ => complete("KO")
+              case Failure(ex) => complete(s"KO: ${ex.getMessage}")
             }
           }
         }
@@ -38,7 +36,7 @@ trait StudentRoutes { self: HttpService =>
                   case Some(token) => complete(token)
                   case None => complete("KO")
                 }
-              case _ => complete("KO")
+              case Failure(ex) => complete(s"KO: ${ex.getMessage}")
             }
           }
         }
@@ -46,7 +44,7 @@ trait StudentRoutes { self: HttpService =>
       get {
         onComplete(StudentService.fetchAll()) {
           case Success(allUsers) => complete(allUsers)
-          case _ => complete("KO")
+          case Failure(ex) => complete(s"KO: ${ex.getMessage}")
         }
       }
     }

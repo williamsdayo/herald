@@ -1,5 +1,6 @@
 package com.rooftopruns.herald.api.message
 
+import com.rooftopruns.herald.api.complaint.ComplaintService
 import com.rooftopruns.herald.api.counsellor.Models.Counsellor
 import com.rooftopruns.herald.api.counsellor.{CounsellorRepository, CounsellorService}
 import com.rooftopruns.herald.api.message.Models.{CreateMessage, Message, Question, Reply}
@@ -12,8 +13,9 @@ import scala.concurrent.Future
 object MessageService {
 
   def findByComplaint(complaintId: Int, token: String): Future[Seq[Message]] = for {
-    studentRow <- StudentService.findByToken(token)
-    student = Student(studentRow.id, studentRow.username, studentRow.password, studentRow.email)
+    complaint <- ComplaintService.find(complaintId)
+    students <- StudentService.fetchAll()
+    student = students.find(_.id == complaint.userId).get
     messageRows <- MessageRepository.fetchByComplaint(complaintId)
     counsellors <- CounsellorService.fetchAll()
     messages = messageRows.map {
