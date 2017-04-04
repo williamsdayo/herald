@@ -1,3 +1,8 @@
+const client = axios.create({
+    baseURL: 'http://localhost:8080/',
+    headers: { 'Content-Type': 'application/json' }
+});
+
 function studentLogin() {
 
     const username = $("#student_username").val();
@@ -6,11 +11,6 @@ function studentLogin() {
     const credentials = JSON.stringify({
         username: username,
         password: password
-    });
-
-    const client = axios.create({
-        baseURL: 'http://localhost:8080/',
-        headers: { 'Content-Type': 'application/json' }
     });
 
     client.post('students/authenticate', credentials)
@@ -36,11 +36,6 @@ function counsellorLogin() {
         password: password
     });
 
-    const client = axios.create({
-        baseURL: 'http://localhost:8080/',
-        headers: { 'Content-Type': 'application/json' }
-    });
-
     client.post('counsellors/authenticate', credentials)
         .then((response) => {
             if (response.data != "KO") return response.data;
@@ -52,4 +47,9 @@ function counsellorLogin() {
         })
         .then((token) => Cookies.set('token', token))
         .then((_) => window.location.href = "issues.html");
+}
+
+function register() {
+
+    window.location.href = 'register.html'
 }

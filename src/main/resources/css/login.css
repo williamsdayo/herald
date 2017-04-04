@@ -11,4 +11,11 @@
 
 .nav-tabs li {
     width: 50%;
+    text-align: center;
+}
+
+.btn-holo-info {
+    color: #5bc0de;
+    border-color: #46b8da;
+    background-color: #fff;
 }
