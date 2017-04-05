@@ -37,6 +37,13 @@ trait WebPageRoutes { self: HttpService =>
         getFromResource("html/issues.html")
       }
     } ~
+    path("issues" / IntNumber ~ ".html") { complaintId =>
+      setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
+        get {
+          getFromResource("html/messages.html")
+        }
+      }
+    } ~
     path("complaints" / IntNumber ~ ".html") { complaintId =>
       setCookie(HttpCookie("complaintId", content = complaintId.toString)) {
         get {

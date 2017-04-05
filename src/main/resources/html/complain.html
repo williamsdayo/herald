@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="/css/libs/bootstrap.css">
     <link rel="stylesheet" href="/css/complain.css">
+    <link rel="stylesheet" href="/css/nav.css">
 
     <script src="/js/libs/jquery-2.2.4.js"></script>
     <script src="/js/libs/axios-0.15.3.min.js"></script>
@@ -14,6 +15,14 @@
 
 </head>
 <body>
+    <div id="nav" class="panel panel-info">
+        <ul class="breadcrumb">
+            <li><span>Herald</span></li>
+            <li><span>Student</span></li>
+            <li><a href="/complaints.html">Complaints</a></li>
+            <li><span>Create</span></li>
+        </ul>
+    </div>
     <div id="main" class="panel panel-info">
         <div class="panel-heading">
             <span>Submit your Complaint</span>
@@ -21,7 +30,7 @@
         <div class="panel-body">
             <input id="title" class="form-control" type="text" placeholder="Title"/>
             <br/>
-            <textarea id="content" class="form-control" rows="5" placeholder="Content"></textarea>
+            <textarea id="content" class="form-control" rows="15" placeholder="Content"></textarea>
             <br/>
             <select id="tag" class="form-control">
                 <option>Health</option>

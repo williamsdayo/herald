@@ -1,6 +1,9 @@
 var app = angular.module('herald', []);
 app.controller('messagesController', function($scope) {
     $scope.messages = [];
+    $scope.userType = Cookies.get('userType');
+    $scope.isStudent = $scope.userType == "Student";
+    $scope.isCounsellor = $scope.userType == "Counsellor";
     $scope.complaint = null;
 
     const client = axios.create({

@@ -24,7 +24,7 @@ object ComplaintService {
 
   def findAllForCounsellor(token: String): Future[Seq[Complaint]] = for {
     counsellor <- CounsellorService.findByToken(token)
-    complaintRows <- ComplaintRepository.findAllForCounsellor(counsellor.id, counsellor.expertise.split(","))
+    complaintRows <- ComplaintRepository.findAllForCounsellor(counsellor.expertise.split(","))
     complaints = complaintRows.map(row => Complaint(row.id, row.title, row.tag, row.userId))
   } yield complaints
 

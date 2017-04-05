@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" href="/css/libs/bootstrap.css">
     <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/css/nav.css">
 
     <script src="/js/libs/jquery-2.2.4.js"></script>
     <script src="/js/libs/js-cookie.js"></script>
@@ -17,14 +18,23 @@
 </head>
 <body>
     <div ng-app="herald" ng-controller="messagesController">
+        <div id="nav" class="panel panel-info">
+            <ul class="breadcrumb">
+                <li><span>Herald</span></li>
+                <li><span>{{ userType }}</span></li>
+                <li ng-if="isStudent"><a href="/complaints.html">Complaints</a></li>
+                <li ng-if="isCounsellor"><a href="/issues.html">Issues</a></li>
+                <li><span>Messages</span></li>
+            </ul>
+        </div>
         <div id="main">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-body">
-                    <span><b>{{ complaint.title }}</b></span>
+                    <span><b>Title: </b>{{ complaint.title }}</span>
                 </div>
             </div>
         </div>
-        <div id="content" class="panel panel-default">
+        <div id="content" class="panel panel-info">
             <div class="panel-body">
                 <div class="panel panel-default message" ng-repeat="message in messages"
                      ng-class="{'reply': message.kind == 'Reply'}">
@@ -35,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div id="chat" class="panel panel-default">
+        <div id="chat" class="panel panel-info">
             <div class="panel-body">
                 <textarea class="form-control" rows="5" ng-model="content"></textarea>
                 <button class="btn btn-info" ng-click="sendMessage()">Send</button>

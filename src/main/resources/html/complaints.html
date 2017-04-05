@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" href="/css/libs/bootstrap.css">
     <link rel="stylesheet" href="/css/complaints.css">
+    <link rel="stylesheet" href="/css/nav.css">
 
     <script src="/js/libs/jquery-2.2.4.js"></script>
     <script src="/js/libs/axios-0.15.3.min.js"></script>
@@ -16,14 +17,24 @@
 </head>
 <body>
     <div ng-app="herald" ng-controller="complaintsController">
+        <div id="nav" class="panel panel-info">
+            <ul class="breadcrumb left">
+                <li><span>Herald</span></li>
+                <li><span>Student</span></li>
+                <li><a href="/complaints.html">Complaints</a></li>
+            </ul>
+            <ul class="breadcrumb right">
+                <li><a href="/">Sign Out</a></li>
+            </ul>
+        </div>
         <div id="main">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-body">
                     <a href="complain.html">Submit a complaint</a>
                 </div>
             </div>
         </div>
-        <div id="content" class="panel panel-default">
+        <div id="content" class="panel panel-info">
             <div class="panel-body">
                 <div class="panel panel-default" ng-hide="complaints.length">
                     <div class="panel-body">

@@ -19,3 +19,9 @@ function register() {
         .then((response) => Cookies.set('token', response.data))
         .then((_) => window.location.href = "complaints.html");
 }
+
+
+function login() {
+
+    window.location.href = 'login.html'
+}

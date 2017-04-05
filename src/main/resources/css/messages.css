@@ -8,6 +8,10 @@
     margin-right: auto;
 }
 
+#main span {
+    color: #337ab7;
+}
+
 #content {
     width: 1000px;
     height: 400px;
@@ -54,6 +58,7 @@
 }
 
 #chat textarea {
+    border-color: #bce8f1;
     width: 90%;
     float: left;
 }

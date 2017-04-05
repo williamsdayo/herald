@@ -23,6 +23,7 @@ function studentLogin() {
             }
         })
         .then((token) => Cookies.set('token', token))
+        .then((_) => Cookies.set('userType', "Student"))
         .then((_) => window.location.href = "complaints.html");
 }
 
@@ -46,6 +47,7 @@ function counsellorLogin() {
             }
         })
         .then((token) => Cookies.set('token', token))
+        .then((_) => Cookies.set('userType', "Counsellor"))
         .then((_) => window.location.href = "issues.html");
 }
 

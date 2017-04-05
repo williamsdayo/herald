@@ -39,10 +39,10 @@ object ComplaintRepository {
       }
   }
 
-  def findAllForCounsellor(userId: Int, tags: Seq[String]): Future[Seq[ComplaintsRow]] = {
+  def findAllForCounsellor(tags: Seq[String]): Future[Seq[ComplaintsRow]] = {
     fetchAll()
-      .map { rows =>
-        rows.filter(r => tags.contains(r.tag))
+      .map { complaintsRows =>
+        complaintsRows.filter(complaintRow => tags.contains(complaintRow.tag))
       }
   }
 
